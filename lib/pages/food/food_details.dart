@@ -7,6 +7,7 @@ import 'package:order_food/widgets/app_column.dart';
 import 'package:order_food/widgets/app_icon.dart';
 import 'package:order_food/widgets/expanded_text.dart';
 
+import '../../data/controllers/cart_controller.dart';
 import '../../utils/colors.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/icon_and_text.dart';
@@ -20,7 +21,8 @@ class FoodDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     var product = Get.find<PopularProductsController>().popularProductsList[pageId];
     //set Quantity back to Zero
-    Get.find<PopularProductsController>().reInitQuantity();
+    Get.find<PopularProductsController>().reInitQuantity(product, Get.find<CartController>()); //gets the instance of Cart Controller
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -32,15 +34,15 @@ class FoodDetails extends StatelessWidget {
               child: Container(
                 width: double.maxFinite,
                 height: Dimensions.foodDetailImageHeight,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/food4.jpg")
+                    image: NetworkImage(product.img!),
                 ),
                 )
               ),
           ),
-          //Here's the Two icons on the left abd right
+          //Here's the Two icons on the left and right
           Positioned(
             //Holds the 2 icons at the top
             top: Dimensions.height45,
@@ -76,7 +78,7 @@ class FoodDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(text: product.name!,),
+                    AppColumn(text: product.name!, stars: product.stars!,),
                     SizedBox(height: Dimensions.height20,),
                     BigText(text: "Introducing"),
                     SizedBox(height: Dimensions.height20,),
@@ -145,7 +147,11 @@ class FoodDetails extends StatelessWidget {
                   color: AppColors.mainColor,
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                 ),
-                child: BigText(text: "\$${product.price} | Add to cart", color: Colors.white,),
+                child: GestureDetector(
+                  onTap: () {
+                    popularProducts.addItem(product);
+                  },
+                    child: BigText(text: "\$${product.price} | Add to cart", color: Colors.white,)),
               )
             ],
           ),

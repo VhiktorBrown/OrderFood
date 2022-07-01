@@ -8,11 +8,13 @@ import 'icon_and_text.dart';
 
 class AppColumn extends StatelessWidget {
   final String text;
+  int stars;
 
-  const AppColumn({Key? key, required this.text}) : super(key: key);
+  AppColumn({Key? key, required this.text, this.stars=5}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,7 +23,7 @@ class AppColumn extends StatelessWidget {
         Row(
           children: [
             Wrap(
-                children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15,))
+                children: List.generate(stars, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15,))
             ),
             SizedBox(width: Dimensions.height10,),
             SmallText(text: "4.5"),

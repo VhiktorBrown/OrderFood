@@ -126,9 +126,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(Dimensions.radius20),
                               color: Colors.white38,
-                              image: const DecorationImage(
+                              image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: AssetImage("assets/images/food2.jpg"))
+                                  //Recommended Image Item
+                                  image: NetworkImage(recommendedProducts.recommendedProductsList[index].img!,),
+                              )
                           ),
                         ),
 
@@ -258,7 +260,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ),
               child: Container(
                 padding: EdgeInsets.only(top: Dimensions.height15, left: Dimensions.width15, right: Dimensions.width15),
-                child: AppColumn(text: popularProduct.name!,),
+                child: AppColumn(text: popularProduct.name!, stars: popularProduct.stars!,),
               ),
             ),
           ),

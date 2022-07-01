@@ -53,10 +53,15 @@ class RecommendedFoodDetails extends StatelessWidget {
             pinned: true,
             backgroundColor: AppColors.mainColor,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/food3.jpg",
-                width: double.maxFinite,
-                fit: BoxFit.cover,
+              background: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          product.img!
+                      ),
+                    fit: BoxFit.cover,
+                  )
+                ),
               ),
             ),
           ),

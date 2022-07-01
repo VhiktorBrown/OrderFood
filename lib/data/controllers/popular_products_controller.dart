@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:order_food/data/controllers/cart_controller.dart';
 import 'package:order_food/data/models/product.dart';
 import 'package:order_food/data/repository/popular_products_repo.dart';
 import 'package:order_food/utils/colors.dart';
@@ -24,6 +25,8 @@ class PopularProductsController extends GetxController{
   int _inCartItems = 0;
   int get inCartItems => _inCartItems+_quantity;
 
+  late CartController _cartController;
+
   //to make the product list accessible from anywhere in the UI.
   List<dynamic> get popularProductsList => _popularProductsList;
 
@@ -41,6 +44,10 @@ class PopularProductsController extends GetxController{
       _popularProductsList = [];
       _popularProductsList.addAll(Product.fromJson(response.body).products!.toList());
       update();
+    }else {
+      Get.snackbar("Response", "Something weird happened",
+          backgroundColor: AppColors.mainColor,
+          colorText: Colors.white);
     }
   }
 
@@ -69,7 +76,34 @@ class PopularProductsController extends GetxController{
     }
   }
 
-  void reInitQuantity(){
+  void reInitQuantity(Products product, CartController cartController){
     _quantity = 0;
+    _inCartItems = 0;
+    _cartController = cartController;
+
+    bool exists = false;
+    //now check if current product exists in cart
+    exists = _cartController.existsInCart(product);
+
+    //print tre or false based on result
+    print("Exists?: " + exists.toString());
+  }
+
+  void addItem(Products product){
+    if(_quantity > 0){
+      _cartController.addItems(product, _quantity);
+      //reset quantity back to 0
+      _quantity = 0;
+
+      _cartController.items.forEach((key, value) {
+        print("Key is: " + value.id! + " Quantity is: " + value.quantity.toString());
+      });
+
+    }else {
+      Get.snackbar("Empty quantity", "Quantity has to be more than zero.",
+          backgroundColor: AppColors.mainColor,
+          colorText: Colors.white);
+    }
+
   }
 }

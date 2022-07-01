@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_food/utils/constants.dart';
+
+import '../../utils/colors.dart';
 
 class ApiClient extends GetConnect implements GetxService {
   late String token;
@@ -22,6 +25,12 @@ class ApiClient extends GetConnect implements GetxService {
       Response response = await get(uri);
       return response;
     }catch(e){
+      Get.snackbar("Unsuccessful", "Response was not successful",
+          backgroundColor: AppColors.mainColor,
+          colorText: Colors.white);
+      //TODO TO remove later
+      print("RESPONSE UNSUCCESSFUL " + e.toString());
+
       return Response(statusCode: 1, statusText: e.toString());
     }
   }
