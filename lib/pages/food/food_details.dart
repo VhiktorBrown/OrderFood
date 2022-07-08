@@ -56,7 +56,35 @@ class FoodDetails extends StatelessWidget {
                         Get.to(MainFoodPage());
                       },
                       child: AppIcon(icon: Icons.arrow_back_ios,)),
-                  AppIcon(icon: Icons.shopping_cart,),
+                  GetBuilder<PopularProductsController>(builder: (popularProducts) {
+                    return Stack(
+                      children: [
+                        AppIcon(icon: Icons.shopping_cart,),
+
+                        //Here, we check if total items in cart is greater or equal to 1
+                        Get.find<PopularProductsController>().totalItems>=1?
+                            //if it is, show this Positioned widget
+                        const Positioned(
+                          top: 0, right: 0,
+                          child: AppIcon(icon: Icons.circle,
+                            iconColor: Colors.transparent,
+                            backgroundColor: AppColors.mainColor,
+                            size: 20,),
+                        ):
+                            //If not, show this empty container(invisible)
+                          Container(),
+                        Get.find<PopularProductsController>().totalItems>=1?
+                        Positioned(
+                          top: 2, right: 4,
+                          child: BigText(text: Get.find<PopularProductsController>().totalItems.toString(),
+                            size: 12,
+                          color: Colors.white,
+                          ),
+                        ):
+                        Container()
+                      ],
+                    );
+                  })
                 ],
               )),
           //Here's more details about the food
@@ -127,7 +155,7 @@ class FoodDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: Dimensions.width10,),
-                    BigText(text: popularProducts.quantity.toString(), color: AppColors.signColor,),
+                    BigText(text: popularProducts.inCartItems.toString(), color: AppColors.signColor,),
                     SizedBox(width: Dimensions.width10,),
                     GestureDetector(
                       onTap: (){

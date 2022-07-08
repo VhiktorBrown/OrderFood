@@ -61,12 +61,12 @@ class PopularProductsController extends GetxController{
   }
 
    int checkQuantity(int quantity){
-    if(quantity < 0){
+    if((_inCartItems+quantity) < 0){
       Get.snackbar("Item count", "You cannot go below 0",
           backgroundColor: AppColors.mainColor,
           colorText: Colors.white);
       return 0;
-    }else if(quantity > 20){
+    }else if((_inCartItems+quantity) > 20){
       Get.snackbar("Item count", "You cannot exceed 20",
       backgroundColor: AppColors.mainColor,
       colorText: Colors.white);
@@ -86,24 +86,32 @@ class PopularProductsController extends GetxController{
     exists = _cartController.existsInCart(product);
 
     //print tre or false based on result
-    print("Exists?: " + exists.toString());
+    print("Exists?: $exists");
+
+    if(exists){
+      _inCartItems = _cartController.getQuantity(product);
+    }
+
+    //print the current quantity of this particular product.
+    print("Quantity in the cart is: $_inCartItems");
   }
 
   void addItem(Products product){
-    if(_quantity > 0){
       _cartController.addItems(product, _quantity);
+
       //reset quantity back to 0
       _quantity = 0;
+      _inCartItems = _cartController.getQuantity(product);
+
 
       _cartController.items.forEach((key, value) {
         print("Key is: " + value.id! + " Quantity is: " + value.quantity.toString());
       });
 
-    }else {
-      Get.snackbar("Empty quantity", "Quantity has to be more than zero.",
-          backgroundColor: AppColors.mainColor,
-          colorText: Colors.white);
-    }
+      update();
+  }
 
+  int get totalItems{
+    return _cartController.totalItems;
   }
 }
