@@ -5,6 +5,7 @@ import 'package:order_food/data/models/product.dart';
 import 'package:order_food/data/repository/popular_products_repo.dart';
 import 'package:order_food/utils/colors.dart';
 
+import '../models/cart.dart';
 import '../models/product.dart';
 
 class PopularProductsController extends GetxController{
@@ -65,6 +66,12 @@ class PopularProductsController extends GetxController{
       Get.snackbar("Item count", "You cannot go below 0",
           backgroundColor: AppColors.mainColor,
           colorText: Colors.white);
+
+      //to prevent the previous Cart Item to display when we reduce to zero, we do this.
+      if(_inCartItems > 0){
+        _quantity = -_inCartItems;
+        return _quantity;
+      }
       return 0;
     }else if((_inCartItems+quantity) > 20){
       Get.snackbar("Item count", "You cannot exceed 20",
@@ -113,5 +120,9 @@ class PopularProductsController extends GetxController{
 
   int get totalItems{
     return _cartController.totalItems;
+  }
+
+  List<Cart> get getItems{
+    return _cartController.getItems;
   }
 }

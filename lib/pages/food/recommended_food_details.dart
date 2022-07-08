@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_food/data/controllers/popular_products_controller.dart';
 import 'package:order_food/data/controllers/recommended_products_controller.dart';
+import 'package:order_food/pages/cart/cart_details.dart';
 import 'package:order_food/routes/route_helper.dart';
 import 'package:order_food/utils/colors.dart';
 import 'package:order_food/utils/dimensions.dart';
@@ -42,12 +43,17 @@ class RecommendedFoodDetails extends StatelessWidget {
                       //Here, we check if total items in cart is greater or equal to 1
                       Get.find<PopularProductsController>().totalItems>=1?
                       //if it is, show this Positioned widget
-                      const Positioned(
+                      Positioned(
                         top: 0, right: 0,
-                        child: AppIcon(icon: Icons.circle,
-                          iconColor: Colors.transparent,
-                          backgroundColor: AppColors.mainColor,
-                          size: 20,),
+                        child: GestureDetector(
+                          onTap: (){
+                            Get.to(CartDetails());
+                          },
+                          child: AppIcon(icon: Icons.circle,
+                            iconColor: Colors.transparent,
+                            backgroundColor: AppColors.mainColor,
+                            size: 20,),
+                        ),
                       ):
                       //If not, show this empty container(invisible)
                       Container(),
