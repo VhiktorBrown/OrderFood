@@ -48,8 +48,9 @@ class CartDetails extends StatelessWidget {
                   context: context,
                   removeTop: true,
                   child: GetBuilder<CartController>(builder: (cartController) {
+                    var cartList = cartController.getItems;
                     return ListView.builder(
-                        itemCount: cartController.getItems.length,
+                        itemCount: cartList.length,
                         itemBuilder: (_, index) {
                           return Container(
                             height: 100,
@@ -95,7 +96,7 @@ class CartDetails extends StatelessWidget {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: () {
-                                                      //popularProducts.setQuantity(false);
+                                                      cartController.addItems(cartList[index].product!, -1);
                                                     },
                                                     child: const Icon(
                                                       Icons.remove,
@@ -103,11 +104,11 @@ class CartDetails extends StatelessWidget {
                                                     ),
                                                   ),
                                                   SizedBox(width: Dimensions.width10,),
-                                                  BigText(text: "0"), //popularProducts.inCartItems.toString(), color: AppColors.signColor,),
+                                                  BigText(text:cartList[index].quantity.toString()), //popularProducts.inCartItems.toString(), color: AppColors.signColor,),
                                                   SizedBox(width: Dimensions.width10,),
                                                   GestureDetector(
                                                     onTap: (){
-                                                      //popularProducts.setQuantity(true);
+                                                      cartController.addItems(cartList[index].product!, 1);
                                                     },
                                                     child: const Icon(
                                                       Icons.add,

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:order_food/pages/cart/cart_details.dart';
 import 'package:order_food/pages/food/food_details.dart';
 import 'package:order_food/pages/food/recommended_food_details.dart';
 import 'package:order_food/pages/home/main_food_page.dart';
@@ -7,10 +8,12 @@ class RouteHelper {
   static const String initial = "/";
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
+  static const String cartDetails = "/cart-details";
 
   static String getInitial()=> '$initial';
   static String getPopularFood(int id)=> '$popularFood?pageId=$id';
   static String getRecommendedFood(int id)=> '$recommendedFood?pageId=$id';
+  static String getCartDetails() => '$cartDetails';
 
   static List<GetPage> routes = [
     GetPage(name: "/", page: ()=> MainFoodPage()),
@@ -30,5 +33,10 @@ class RouteHelper {
     },
       transition: Transition.fadeIn,
     ),
+
+    GetPage(name: cartDetails, page: () {
+      return CartDetails();
+    },
+    transition: Transition.fadeIn),
   ];
 }

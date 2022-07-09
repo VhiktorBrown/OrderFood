@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_food/data/controllers/popular_products_controller.dart';
 import 'package:order_food/pages/home/main_food_page.dart';
+import 'package:order_food/routes/route_helper.dart';
 import 'package:order_food/utils/dimensions.dart';
 import 'package:order_food/widgets/app_column.dart';
 import 'package:order_food/widgets/app_icon.dart';
@@ -52,41 +53,42 @@ class FoodDetails extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: (){
-                        Get.to(MainFoodPage());
+                        Get.toNamed(RouteHelper.getInitial());
                       },
-                      child: AppIcon(icon: Icons.arrow_back_ios,)),
+                      child: const AppIcon(icon: Icons.arrow_back_ios,)
+                  ),
                   GetBuilder<PopularProductsController>(builder: (popularProducts) {
-                    return Stack(
-                      children: [
-                        AppIcon(icon: Icons.shopping_cart,),
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getCartDetails());
+                      },
+                      child: Stack(
+                        children: [
+                          AppIcon(icon: Icons.shopping_cart,),
 
-                        //Here, we check if total items in cart is greater or equal to 1
-                        Get.find<PopularProductsController>().totalItems>=1?
-                            //if it is, show this Positioned widget
-                        Positioned(
-                          top: 0, right: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(CartDetails());
-                            },
-                            child: AppIcon(icon: Icons.circle,
-                              iconColor: Colors.transparent,
-                              backgroundColor: AppColors.mainColor,
-                              size: 20,),
-                          ),
-                        ):
-                            //If not, show this empty container(invisible)
-                          Container(),
-                        Get.find<PopularProductsController>().totalItems>=1?
-                        Positioned(
-                          top: 2, right: 4,
-                          child: BigText(text: Get.find<PopularProductsController>().totalItems.toString(),
-                            size: 12,
-                          color: Colors.white,
-                          ),
-                        ):
-                        Container()
-                      ],
+                          //Here, we check if total items in cart is greater or equal to 1
+                          popularProducts.totalItems>=1?
+                              //if it is, show this Positioned widget
+                          Positioned(
+                            top: 0, right: 0,
+                              child: AppIcon(icon: Icons.circle,
+                                iconColor: Colors.transparent,
+                                backgroundColor: AppColors.mainColor,
+                                size: 20,),
+                          ):
+                              //If not, show this empty container(invisible)
+                            Container(),
+                          Get.find<PopularProductsController>().totalItems>=1?
+                          Positioned(
+                            top: 2, right: 4,
+                            child: BigText(text: Get.find<PopularProductsController>().totalItems.toString(),
+                              size: 12,
+                            color: Colors.white,
+                            ),
+                          ):
+                          Container()
+                        ],
+                      ),
                     );
                   })
                 ],

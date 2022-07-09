@@ -36,37 +36,39 @@ class RecommendedFoodDetails extends StatelessWidget {
                   },
                     child: AppIcon(icon: Icons.clear)),
                 GetBuilder<PopularProductsController>(builder: (popularProducts) {
-                  return Stack(
-                    children: [
-                      AppIcon(icon: Icons.shopping_cart,),
+                  return GestureDetector(
+                    onTap: (){
+                      if(popularProducts.totalItems >= 1){
+                        Get.toNamed(RouteHelper.getCartDetails());
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        AppIcon(icon: Icons.shopping_cart,),
 
-                      //Here, we check if total items in cart is greater or equal to 1
-                      Get.find<PopularProductsController>().totalItems>=1?
-                      //if it is, show this Positioned widget
-                      Positioned(
-                        top: 0, right: 0,
-                        child: GestureDetector(
-                          onTap: (){
-                            Get.to(CartDetails());
-                          },
-                          child: AppIcon(icon: Icons.circle,
-                            iconColor: Colors.transparent,
-                            backgroundColor: AppColors.mainColor,
-                            size: 20,),
-                        ),
-                      ):
-                      //If not, show this empty container(invisible)
-                      Container(),
-                      Get.find<PopularProductsController>().totalItems>=1?
-                      Positioned(
-                        top: 2, right: 4,
-                        child: BigText(text: Get.find<PopularProductsController>().totalItems.toString(),
-                          size: 12,
-                          color: Colors.white,
-                        ),
-                      ):
-                      Container()
-                    ],
+                        //Here, we check if total items in cart is greater or equal to 1
+                        Get.find<PopularProductsController>().totalItems>=1?
+                        //if it is, show this Positioned widget
+                        const Positioned(
+                          top: 0, right: 0,
+                            child: AppIcon(icon: Icons.circle,
+                              iconColor: Colors.transparent,
+                              backgroundColor: AppColors.mainColor,
+                              size: 20,),
+                        ):
+                        //If not, show this empty container(invisible)
+                        Container(),
+                        Get.find<PopularProductsController>().totalItems>=1?
+                        Positioned(
+                          top: 2, right: 4,
+                          child: BigText(text: Get.find<PopularProductsController>().totalItems.toString(),
+                            size: 12,
+                            color: Colors.white,
+                          ),
+                        ):
+                        Container()
+                      ],
+                    ),
                   );
                 }),
               ],

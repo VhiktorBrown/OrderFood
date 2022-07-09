@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_food/data/models/cart.dart';
-
 import '../../utils/colors.dart';
 import '../models/product.dart';
 import '../repository/cart_repo.dart';
@@ -30,7 +29,8 @@ class CartController extends GetxController{
             isExist: true,
             price: value.price,
             img: value.img,
-            time: DateTime.now().toString()
+            time: DateTime.now().toString(),
+            product: product,
         );
       });
 
@@ -54,7 +54,8 @@ class CartController extends GetxController{
               isExist: true,
               price: product.price,
               img: product.img,
-              time: DateTime.now().toString()
+              time: DateTime.now().toString(),
+              product: product
           );
         });
         }else {
@@ -62,8 +63,8 @@ class CartController extends GetxController{
               backgroundColor: AppColors.mainColor,
               colorText: Colors.white);
         }
-    }
-
+      }
+    update();
     }
 
     bool existsInCart(Products product){
