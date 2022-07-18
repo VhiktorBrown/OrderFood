@@ -22,7 +22,7 @@ class Cart {
   });
 
   Cart.fromJson(Map<String, dynamic> json){
-    id = json["_id"];
+    id = json["id"];
     name = json["name"];
     price = json["price"];
     img = json["image"];
@@ -30,5 +30,18 @@ class Cart {
     isExist = json["isExist"];
     time = json["time"];
     product = Products.fromJson(json['product']);
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      "id": id,
+      "name": name,
+      "price": price,
+      "image": img,
+      "quantity": quantity,
+      "isExists": isExist,
+      "time": time,
+      "product": product!.toJson()
+    };
   }
 }

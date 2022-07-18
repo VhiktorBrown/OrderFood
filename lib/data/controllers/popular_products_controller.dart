@@ -100,7 +100,7 @@ class PopularProductsController extends GetxController{
     }
 
     //print the current quantity of this particular product.
-    print("Quantity in the cart is: $_inCartItems");
+    //print("Quantity in the cart is: $_inCartItems");
   }
 
   void addItem(Products product){

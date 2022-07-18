@@ -15,7 +15,8 @@ import '../cart/cart_details.dart';
 
 class FoodDetails extends StatelessWidget {
   int pageId;
-  FoodDetails({Key? key, required this.pageId }) : super(key: key);
+  String page;
+  FoodDetails({Key? key, required this.pageId, required this.page }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,11 @@ class FoodDetails extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: (){
-                        Get.toNamed(RouteHelper.getInitial());
+                        if(page=="cartPage"){
+                          Get.toNamed(RouteHelper.getCartDetails());
+                        }else {
+                          Get.toNamed(RouteHelper.getInitial());
+                        }
                       },
                       child: const AppIcon(icon: Icons.arrow_back_ios,)
                   ),

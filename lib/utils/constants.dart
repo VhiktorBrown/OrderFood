@@ -7,4 +7,6 @@ class Constants {
   static const String POPULAR_PRODUCT_URL = "products";
 
   static const String TOKEN = "token";
+  static const String CART_LIST = "cartList";
+  static const String CART_HISTORY = "cartHistoryList";
 }

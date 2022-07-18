@@ -41,4 +41,7 @@ class Dimensions {
   static double foodDetailImageHeight = screenHeight/2.3;
 
   static double bottomBarHeight = screenHeight/7.71;
+
+  //for Splash Screen
+  static double splashImage = screenWidth/3.22;
 }

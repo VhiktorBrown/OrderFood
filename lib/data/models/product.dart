@@ -37,7 +37,7 @@ class Products {
   String? location;
   String? createdAt;
   String? updatedAt;
-  int? typedId;
+  int? typeId;
 
   Products({
     this.id,
@@ -49,7 +49,7 @@ class Products {
     this.location,
     this.createdAt,
     this.updatedAt,
-    this.typedId
+    this.typeId
 });
 
   Products.fromJson(Map<String, dynamic> json){
@@ -62,6 +62,19 @@ class Products {
     location = json["location"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
-    typedId = json["type_id"];
+    typeId = json["type_id"];
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      "_id": id,
+      "name": name,
+      "price": price,
+      "image": img,
+      "location": location,
+      "createdAt": createdAt,
+      "updatedAt": updatedAt,
+      "typeId": typeId,
+    };
   }
 }
