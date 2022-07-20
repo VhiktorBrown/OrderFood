@@ -43,11 +43,6 @@ class CartController extends GetxController{
     }else {
       if(quantity > 0){
         _items.putIfAbsent(product.id!, () {
-          // print("Printing Product ${product.id!}$quantity");
-          _items.forEach((key, value) {
-            // print("Quantity is: " +  value.quantity.toString());
-          });
-
           return Cart(
               id: product.id,
               name: product.name,

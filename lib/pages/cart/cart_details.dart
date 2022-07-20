@@ -69,7 +69,14 @@ class CartDetails extends StatelessWidget {
                                     }else {
                                       var recommendedIndex = Get.find<RecommendedProductsController>()
                                           .recommendedProductsList.indexOf(cartList[index].product);
-                                      Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartPage"));
+
+                                      if(recommendedIndex<0){
+                                        Get.snackbar("Sorry", "You cannot view product gotten from Cart History.",
+                                            backgroundColor: AppColors.mainColor,
+                                            colorText: Colors.white);
+                                      }else {
+                                        Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartPage"));
+                                      }
                                     }
                                   },
                                   child: Container(

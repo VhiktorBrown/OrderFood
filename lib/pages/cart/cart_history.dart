@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:order_food/data/controllers/cart_controller.dart';
+import 'package:order_food/routes/route_helper.dart';
 import 'package:order_food/utils/colors.dart';
 import 'package:order_food/utils/dimensions.dart';
 import 'package:order_food/widgets/app_icon.dart';
@@ -149,16 +150,20 @@ class CartHistory extends StatelessWidget {
                                             for(int j = 0; j < cartHistoryList.length; j++){
                                               //loop through each object and confirm whether
                                               //the time is equal to the time for this particular History item
-                                              if(cartHistoryList[i].time==timeList[i]){
-                                                cartMap.putIfAbsent(cartHistoryList[i].id!, () => Cart.fromJson(jsonDecode(jsonEncode(cartHistoryList[i]))));
+                                              if(DateFormat('E, d MMM yyyy HH:mm:ss').format(DateTime.parse(cartHistoryList[j].time!))==timeList[i]){
+                                                cartMap.putIfAbsent(cartHistoryList[j].id!, () => Cart.fromJson(jsonDecode(jsonEncode(cartHistoryList[j]))));
                                               }
                                             }
 
                                             Get.find<CartController>().setItems = cartMap;
 
                                             //add and update the Cart History in SharedPreferences.
-                                            Get.find<CartController>().addToHistory();
+                                            Get.find<CartController>().addToCartList();
 
+                                            //move to Cart page
+                                            Get.toNamed(RouteHelper.cartDetails);
+
+                                            //TODO Remove later
                                             print("Time: ${timeList[i]}");
                                           },
                                           child: Container(
