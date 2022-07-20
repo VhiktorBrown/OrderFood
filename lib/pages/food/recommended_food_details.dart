@@ -155,7 +155,7 @@ class RecommendedFoodDetails extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: Dimensions.height30, bottom: Dimensions.height30, left: Dimensions.width20, right: Dimensions.width20),
               //TODO Fix issue with height
-              height: 120,
+              height: Dimensions.height30*4,
               decoration: BoxDecoration(
                 color: AppColors.buttonBackgroundColor,
                 borderRadius: BorderRadius.only(

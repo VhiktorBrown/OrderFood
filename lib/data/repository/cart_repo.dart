@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/constants.dart';
@@ -16,7 +19,6 @@ class CartRepo {
     cart=[];
     cartList.forEach((element) {
       element.time = DateTime.now().toString();
-
       return cart.add(jsonEncode(element));
     });
 
@@ -60,6 +62,7 @@ class CartRepo {
   }
 
   void addToCartHistoryList(){
+
     //check if History previously exists, add it into the String list
     if(sharedPreferences.containsKey(Constants.CART_HISTORY)){
       cartHistory = sharedPreferences.getStringList(Constants.CART_HISTORY)!;
@@ -68,6 +71,9 @@ class CartRepo {
     for(int i = 0; i < cart.length; i++){
       cartHistory.add(cart[i]);
     }
+
+    //print Cart History after saving
+    debugPrint("Print Cart History after saving" + cartHistory.toString());
 
     //remove items from Cart
     removeItemsFromCart();

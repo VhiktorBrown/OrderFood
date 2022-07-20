@@ -137,7 +137,7 @@ class FoodDetails extends StatelessWidget {
       bottomNavigationBar: GetBuilder<PopularProductsController>(builder: (popularProducts){
         return Container(
           padding: EdgeInsets.only(top: Dimensions.height30, bottom: Dimensions.height30, left: Dimensions.width20, right: Dimensions.width20),
-          height: 120,
+          height: Dimensions.height30*4,
           decoration: BoxDecoration(
             color: AppColors.buttonBackgroundColor,
             borderRadius: BorderRadius.only(
@@ -182,6 +182,7 @@ class FoodDetails extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
+                  //add this product to Cart
                   popularProducts.addItem(product);
                 },
                 child: Container(
