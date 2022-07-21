@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:order_food/base/no_data_page.dart';
 import 'package:order_food/data/controllers/cart_controller.dart';
 import 'package:order_food/data/controllers/popular_products_controller.dart';
 import 'package:order_food/data/controllers/recommended_products_controller.dart';
+import 'package:order_food/pages/home/home_page.dart';
 import 'package:order_food/pages/home/main_food_page.dart';
 import 'package:order_food/routes/route_helper.dart';
 import 'package:order_food/utils/colors.dart';
@@ -32,18 +34,21 @@ class CartDetails extends StatelessWidget {
                   SizedBox(width: Dimensions.width20*5,),
                   GestureDetector(
                     onTap: (){
-                      Get.to(MainFoodPage());
+                      Get.to(() => const HomePage());
                     },
                       child: AppIcon(icon: Icons.home_outlined, iconColor: Colors.white, backgroundColor: AppColors.mainColor, iconSize: Dimensions.iconSize24,)),
                   AppIcon(icon: Icons.shopping_cart, iconColor: Colors.white, backgroundColor: AppColors.mainColor, iconSize: Dimensions.iconSize24,),
                 ],
             )
           ),
-          Positioned(
-            top: Dimensions.height20*5,
-            left: Dimensions.width20,
-            right: Dimensions.height20,
-            bottom: 0,
+
+          //Positioned Widget for the BODY
+          GetBuilder<CartController>(builder: (cartController) {
+            return cartController.getItems.length>0?Positioned(
+              top: Dimensions.height20*5,
+              left: Dimensions.width20,
+              right: Dimensions.height20,
+              bottom: 0,
               child: Container(
                 margin: EdgeInsets.only(top: Dimensions.height15),
                 child: MediaQuery.removePadding(
@@ -153,14 +158,16 @@ class CartDetails extends StatelessWidget {
                         });
                   }),
                 ),
-            ),
-          ),
+              ),
+            ):NoDataPage(text: "Your cart is empty");
+          }),
         ],
       ),
+
       bottomNavigationBar: GetBuilder<CartController>(builder: (cartController){
         return Container(
           padding: EdgeInsets.only(top: Dimensions.height30, bottom: Dimensions.height30, left: Dimensions.width20, right: Dimensions.width20),
-          height: 120,
+          height: Dimensions.height30*4,
           decoration: BoxDecoration(
             color: AppColors.buttonBackgroundColor,
             borderRadius: BorderRadius.only(
@@ -168,7 +175,7 @@ class CartDetails extends StatelessWidget {
               topRight: Radius.circular(Dimensions.radius20*2),
             ),
           ),
-          child: Row(
+          child: cartController.getItems.length>0?Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
@@ -187,7 +194,6 @@ class CartDetails extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  //popularProducts.addItem(product);
                   //add the Items in the Cart to History after user checks out
                   cartController.addToHistory();
                 },
@@ -201,7 +207,7 @@ class CartDetails extends StatelessWidget {
                 ),
               )
             ],
-          ),
+          ):Container(),
         );
       },
       ),

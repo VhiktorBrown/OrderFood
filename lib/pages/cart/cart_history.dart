@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:order_food/base/no_data_page.dart';
 import 'package:order_food/data/controllers/cart_controller.dart';
 import 'package:order_food/routes/route_helper.dart';
 import 'package:order_food/utils/colors.dart';
@@ -51,12 +52,12 @@ class CartHistory extends StatelessWidget {
     List orderList = returnOrderAsList();
 
     //Now, loop through them to get the various layers of Orders
-    int savedCount = 0;
-    for(int x = 0; x<cartOrderItems.length; x++){
-      for(int y = 0; y < orderList[x]; y++){
-        print(cartHistoryList[savedCount++].time);
-      }
-    }
+    // int savedCount = 0;
+    // for(int x = 0; x<cartOrderItems.length; x++){
+    //   for(int y = 0; y < orderList[x]; y++){
+    //     print(cartHistoryList[savedCount++].time);
+    //   }
+    // }
 
     cartOrderItems.forEach((key, value) {
       print("Cart Order Items $value");
@@ -70,6 +71,14 @@ class CartHistory extends StatelessWidget {
 
     //counter to track HistoryList
     int counter =0;
+
+    Widget timeWidget(int index){
+      var time = DateTime.now().toString();
+        if(index<cartHistoryList.length){
+          time = DateFormat('E, d MMM yyyy hh:mm a').format(DateTime.parse(cartHistoryList[counter].time!));
+        }
+        return BigText(text: time);
+    }
 
     return Scaffold(
       body: Column(
@@ -87,16 +96,17 @@ class CartHistory extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(
-                top: Dimensions.width20,
-                left: Dimensions.width20,
-                right: Dimensions.width20,
-              ),
-              child: MediaQuery.removePadding(
-                removeTop: true,
-                context: context,
+          GetBuilder<CartController>(builder: (cartController){
+            return cartController.getCartHistoryList().isNotEmpty?Expanded(
+              child: Container(
+                margin: EdgeInsets.only(
+                  top: Dimensions.width20,
+                  left: Dimensions.width20,
+                  right: Dimensions.width20,
+                ),
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
                   child: ListView(
                     children: [
                       for(int i = 0; i < cartOrderItems.length; i++)
@@ -106,10 +116,7 @@ class CartHistory extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ((){
-                                var time = DateFormat('E, d MMM yyyy hh:mm a').format(DateTime.parse(cartHistoryList[counter].time!));
-                                return BigText(text: time);
-                              }()),
+                              timeWidget(counter),
                               SizedBox(height: Dimensions.height10,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,8 +170,6 @@ class CartHistory extends StatelessWidget {
                                             //move to Cart page
                                             Get.toNamed(RouteHelper.cartDetails);
 
-                                            //TODO Remove later
-                                            print("Time: ${timeList[i]}");
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(horizontal: Dimensions.width10, vertical: Dimensions.height10/2),
@@ -185,8 +190,15 @@ class CartHistory extends StatelessWidget {
                         )
                     ],
                   ),),
-            ),
-          )
+              ),
+            )
+                :SizedBox(
+              height: MediaQuery.of(context).size.height/1.5,
+                child: const Center(
+                    child: NoDataPage(
+                      text: "Your cart history is empty",
+                      imagePath: "assets/images/no_history.png",)));
+          }),
         ],
       ),
     );
