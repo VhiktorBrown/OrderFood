@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:order_food/pages/cart/cart_history.dart';
 import 'package:order_food/pages/home/main_food_page.dart';
+import 'package:order_food/pages/profile/profile_page.dart';
 
 import '../../utils/colors.dart';
 
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     MainFoodPage(),
     Container(child: const Center(child: Text("Next Page")),),
     CartHistory(),
-    Container(child: const Center(child: Text("Next Next Next Page")),)
+    ProfilePage()
   ];
 
   void onTapNav(int index){
