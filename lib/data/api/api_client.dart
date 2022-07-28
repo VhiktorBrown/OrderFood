@@ -20,6 +20,14 @@ class ApiClient extends GetConnect implements GetxService {
     };
   }
 
+  void updateHeader(){
+    //token has been updated upon Sign up in Auth Repo
+    _mainHeaders = {
+      'content-type' : 'application/json; charset=UTF-8',
+      'Authorization' : 'Bearer $token'
+    };
+  }
+
   Future<Response> getData(String uri) async{
     try{
       Response response = await get(uri);
@@ -28,9 +36,18 @@ class ApiClient extends GetConnect implements GetxService {
       Get.snackbar("Unsuccessful", "Response was not successful",
           backgroundColor: AppColors.mainColor,
           colorText: Colors.white);
-      //TODO TO remove later
-      print("RESPONSE UNSUCCESSFUL " + e.toString());
+      // //TODO TO remove later
+      // print("RESPONSE UNSUCCESSFUL " + e.toString());
 
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  Future<Response> postData(String uri, dynamic body) async{
+    try{
+      Response response = await post(uri, body, headers: _mainHeaders);
+      return response;
+    }catch(e){
       return Response(statusCode: 1, statusText: e.toString());
     }
   }
