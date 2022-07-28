@@ -1,16 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_food/data/controllers/cart_controller.dart';
 import 'package:order_food/helper/dependencies.dart' as dep;
 import 'package:order_food/pages/auth/sign_in_page.dart';
-import 'package:order_food/pages/auth/sign_up.dart';
 import 'package:order_food/routes/route_helper.dart';
-
 import 'data/controllers/popular_products_controller.dart';
 import 'data/controllers/recommended_products_controller.dart';
 
 Future<void> main() async{
+
   //to ensure that the dependencies are loaded before loading the UI
   WidgetsFlutterBinding.ensureInitialized();
 

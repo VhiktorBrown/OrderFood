@@ -36,8 +36,6 @@ class ApiClient extends GetConnect implements GetxService {
       Get.snackbar("Unsuccessful", "Response was not successful",
           backgroundColor: AppColors.mainColor,
           colorText: Colors.white);
-      // //TODO TO remove later
-      // print("RESPONSE UNSUCCESSFUL " + e.toString());
 
       return Response(statusCode: 1, statusText: e.toString());
     }

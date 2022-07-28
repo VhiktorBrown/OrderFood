@@ -1,10 +1,10 @@
 class ResponseModel {
-  final bool _isSuccess;
+  final bool _success;
   final String _message;
 
-  ResponseModel(this._isSuccess, this._message);
+  ResponseModel(this._success, this._message);
 
-  bool get isSuccess => _isSuccess;
+  bool get success => _success;
   String get message => _message;
 
 }

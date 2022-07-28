@@ -7,8 +7,15 @@ class Constants {
   static const String POPULAR_PRODUCT_URL = "products";
 
   static const String REGISTER_URL = "register";
+  static const String LOGIN_URL = "login";
 
   static const String TOKEN = "token";
   static const String CART_LIST = "cartList";
   static const String CART_HISTORY = "cartHistoryList";
+
+  //user Details constant
+  static const String NAME = "name";
+  static const String USERNAME = "username";
+  static const String EMAIL = "email";
+  static const String PHONE = "phone";
 }
