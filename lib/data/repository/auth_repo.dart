@@ -24,6 +24,10 @@ class AuthRepo {
     return await sharedPreferences.getString(Constants.TOKEN)??"NoToken";
   }
 
+  bool userLoggedIn(){
+    return sharedPreferences.containsKey(Constants.TOKEN);
+  }
+
   //save Token to Local Storage
   saveToken(String token) async {
     //initialize token in ApiClient class

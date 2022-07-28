@@ -13,6 +13,7 @@ import 'package:order_food/utils/dimensions.dart';
 import 'package:order_food/widgets/big_text.dart';
 import 'package:order_food/widgets/small_text.dart';
 
+import '../../data/controllers/auth_controller.dart';
 import '../../widgets/app_icon.dart';
 
 class CartDetails extends StatelessWidget {
@@ -194,8 +195,14 @@ class CartDetails extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  //add the Items in the Cart to History after user checks out
-                  cartController.addToHistory();
+                  //check if user is logged in.
+                  if(Get.find<AuthController>().userLoggedIn()){
+                    //add the Items in the Cart to History after user checks out
+                    cartController.addToHistory();
+                  }else {
+                    Get.toNamed(RouteHelper.getSignInPage());
+                  }
+
                 },
                 child: Container(
                     padding: EdgeInsets.all(Dimensions.radius20),

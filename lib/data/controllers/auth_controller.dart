@@ -59,4 +59,8 @@ class AuthController extends GetxController implements GetxService{
   void saveUserDetails(SignUpBody signUpBody) async{
     authRepo.saveUserDetails(signUpBody);
   }
+
+  bool userLoggedIn(){
+    return authRepo.userLoggedIn();
+  }
 }

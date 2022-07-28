@@ -8,7 +8,6 @@ import 'package:order_food/pages/auth/sign_up.dart';
 
 import '../../base/show_custom_snackbar.dart';
 import '../../data/controllers/auth_controller.dart';
-import '../../data/models/sign_up_body.dart';
 import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
@@ -43,6 +42,7 @@ class SignInPage extends StatelessWidget {
         authController.login(email, password).then((status) {
           if(status.success){
             print("Login Successful");
+            //Get.toNamed(RouteHelper.getInitial());
             Get.toNamed(RouteHelper.getInitial());
           }else {
             showCustomSnackBar(status.message, color: AppColors.mainColor, title: "Unsuccessful");
@@ -80,9 +80,9 @@ class SignInPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Hello",
+                    Text("Welcome",
                       style: TextStyle(
-                        fontSize: Dimensions.font20*3,
+                        fontSize: Dimensions.font20*2,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -137,10 +137,10 @@ class SignInPage extends StatelessWidget {
                       TextSpan(
                         //when user taps on Create, it takes user to Sign up page
                           recognizer: TapGestureRecognizer()..onTap=()=> Get.to(SignUpPage(), transition: Transition.fade),
-                          text: " Create.",
+                          text: " Sign in.",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: AppColors.mainColor,
                             fontSize: Dimensions.font20,
                           ))
                     ],

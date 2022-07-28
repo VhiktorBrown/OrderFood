@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:order_food/pages/auth/sign_in_page.dart';
 import 'package:order_food/pages/cart/cart_history.dart';
 import 'package:order_food/pages/home/main_food_page.dart';
 import 'package:order_food/pages/profile/profile_page.dart';
@@ -21,7 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     MainFoodPage(),
-    Container(child: const Center(child: Text("Next Page")),),
+    SignInPage(),
+    //Container(child: const Center(child: Text("Next Page")),),
     CartHistory(),
     ProfilePage()
   ];
@@ -115,7 +117,7 @@ class _HomePageState extends State<HomePage> {
       body: pages[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.mainColor,
-        unselectedItemColor: AppColors.yellowColor,
+        unselectedItemColor: Colors.grey,
         currentIndex: selectedIndex,
         showSelectedLabels: true,
         showUnselectedLabels: false,
