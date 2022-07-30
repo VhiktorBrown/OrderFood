@@ -31,7 +31,19 @@ class CartDetails extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios, iconColor: Colors.white, backgroundColor: AppColors.mainColor, iconSize: Dimensions.iconSize24,),
+                  GestureDetector(
+                    onTap: (){
+                      Get.back(
+                        closeOverlays: true
+                      );
+                      },
+                      child: AppIcon(
+                        icon: Icons.arrow_back_ios,
+                        iconColor: Colors.white,
+                        backgroundColor: AppColors.mainColor,
+                        iconSize: Dimensions.iconSize24,
+                      )
+                  ),
                   SizedBox(width: Dimensions.width20*5,),
                   GestureDetector(
                     onTap: (){

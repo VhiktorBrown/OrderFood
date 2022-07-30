@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:order_food/base/custom_progress_bar.dart';
 import 'package:order_food/data/controllers/auth_controller.dart';
 import 'package:order_food/data/models/sign_up_body.dart';
+import 'package:order_food/routes/route_helper.dart';
 import 'package:order_food/utils/colors.dart';
 import 'package:order_food/utils/dimensions.dart';
 import 'package:order_food/widgets/big_text.dart';
@@ -67,13 +68,12 @@ class SignUpPage extends StatelessWidget {
           if(status.success){
             print("Registration Successful");
             showCustomSnackBar(status.message, color: AppColors.mainColor, title: "Successful");
+            //take user to Main page of app
+            Get.offNamed(RouteHelper.getInitial());
           }else {
             showCustomSnackBar(status.message, color: AppColors.mainColor, title: "Unsuccessful");
           }
         });
-
-        //TODO Remove later
-        print(signUpBody.toString());
 
       }
     }

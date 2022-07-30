@@ -43,7 +43,7 @@ class SignInPage extends StatelessWidget {
           if(status.success){
             print("Login Successful");
             //Get.toNamed(RouteHelper.getInitial());
-            Get.toNamed(RouteHelper.getInitial());
+            Get.offAndToNamed(RouteHelper.getInitial());
           }else {
             showCustomSnackBar(status.message, color: AppColors.mainColor, title: "Unsuccessful");
           }

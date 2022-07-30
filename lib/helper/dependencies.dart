@@ -19,7 +19,7 @@ import '../data/repository/recommended_products_repo.dart';
   Get.lazyPut(()=> sharedPreferences);
 
   //loading Api Client.
-  Get.lazyPut(()=> ApiClient(appBaseUrl: Constants.BASE_URL));
+  Get.lazyPut(()=> ApiClient(appBaseUrl: Constants.BASE_URL, sharedPreferences: sharedPreferences));
 
   //loading Repositories
   Get.lazyPut(() => PopularProductsRepo(apiClient: Get.find()));

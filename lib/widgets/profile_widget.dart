@@ -14,7 +14,8 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      //Code says cannot provide both color and decoration for Container.
+      //color: Colors.white,
       padding: EdgeInsets.only(
         left: Dimensions.width20,
         top: Dimensions.height10,

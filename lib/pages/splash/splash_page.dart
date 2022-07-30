@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
     //After 3 seconds, go to Main page of app
     Timer(
       const Duration(seconds: 3),
-        ()=> Get.toNamed(RouteHelper.getInitial())
+        ()=> Get.offAndToNamed(RouteHelper.getInitial())
     );
   }
   @override

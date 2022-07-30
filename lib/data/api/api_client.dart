@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_food/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 
@@ -8,11 +9,12 @@ class ApiClient extends GetConnect implements GetxService {
   late String token;
   final String appBaseUrl;
   late Map<String, String> _mainHeaders;
+  SharedPreferences sharedPreferences;
 
-  ApiClient({required this.appBaseUrl}){
+  ApiClient({required this.appBaseUrl, required this.sharedPreferences}){
     baseUrl = appBaseUrl;
     timeout = const Duration(seconds: 30);
-    token = Constants.TOKEN;
+    token = sharedPreferences.getString(Constants.TOKEN)??"";
 
     _mainHeaders = {
       'content-type' : 'application/json; charset=UTF-8',
@@ -20,17 +22,21 @@ class ApiClient extends GetConnect implements GetxService {
     };
   }
 
-  void updateHeader(){
+  void updateHeader(token){
     //token has been updated upon Sign up in Auth Repo
     _mainHeaders = {
       'content-type' : 'application/json; charset=UTF-8',
       'Authorization' : 'Bearer $token'
     };
+    //print("Token: " + token);
   }
 
-  Future<Response> getData(String uri) async{
+  Future<Response> getData(String uri, {Map<String, String>? headers}) async{
     try{
-      Response response = await get(uri);
+      Response response = await get(
+          uri,
+          headers: headers??_mainHeaders);
+
       return response;
     }catch(e){
       Get.snackbar("Unsuccessful", "Response was not successful",

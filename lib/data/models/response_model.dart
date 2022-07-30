@@ -1,3 +1,5 @@
+import 'package:order_food/data/models/sign_up_body.dart';
+
 class ResponseModel {
   final bool _success;
   final String _message;
